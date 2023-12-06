@@ -1,0 +1,13 @@
+{
+	"manifest_version": 3,
+	"name": "Open traefik link",
+	"description": "Cet extension permet d'ouvrir le lien traefik d'un site",
+	"version": "1.0",
+	"permissions": ["activeTab"],
+	"content_scripts": [
+		{
+			"js": ["content.js"],
+			"matches": ["<all_urls>"]
+		}
+	]
+}
