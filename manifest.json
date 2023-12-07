@@ -6,7 +6,7 @@
 	"content_scripts": [
 		{
 			"js": ["content.js"],
-			"matches": ["https://*/traefik*"]
+			"matches": ["https://*.wilders.dev/*"]
 		}
 	]
 }
