@@ -17,7 +17,6 @@ function observeTableContent() {
 			}
 		});
 	});
-
 	tableObserver.observe(document.body, { childList: true, subtree: true });
 }
 
@@ -53,70 +52,80 @@ function observeLinks() {
 
 // Variable pour suivre l'état de la colonne ajoutée
 let isColumnAdded = false;
+let count = 0;
 
 // Gérer le clic sur un lien
 function handleLinkClick(link) {
+	// Vérifiez si le lien est "#/http"
 	const hrefValue = link.getAttribute("href");
-	if (hrefValue === "#/http" && !isColumnAdded) {
-		// Si le lien est "#/http" et la colonne n'a pas été ajoutée, ajoutez la colonne
-		const table = document.querySelector(".q-table");
-		const headerRow = table.querySelector("thead tr");
-		const openTh = document.createElement("th");
-		openTh.textContent = "Open";
-		headerRow.insertBefore(openTh, headerRow.children[3]);
+	if (hrefValue === "#/http" && !isColumnAdded && count < 1) {
+		count++;
+		setTimeout(() => {
+			// Si le lien est "#/http" et la colonne n'a pas été ajoutée, ajoutez la colonne
+			const table = document.querySelector(".q-table");
+			const headerRow = table.querySelector("thead tr");
+			const openTh = document.createElement("th");
+			openTh.textContent = "Open";
+			headerRow.insertBefore(openTh, headerRow.children[3]);
 
-		const tbodyRows = table.querySelectorAll("tbody tr");
-		tbodyRows.forEach((row) => {
-			// Pour chaque ligne, ajoutez le bouton "Open" et définissez son comportement
-			const openTd = document.createElement("td");
-			const openButton = document.createElement("button");
-			openButton.classList.add(
-				"q-btn",
-				"inline",
-				"q-btn-item",
-				"non-selectable",
-				"no-outline",
-				"q-btn--unelevated",
-				"q-btn--rectangle",
-				"bg-app-toggle",
-				"q-btn--actionable",
-				"q-focusable",
-				"q-hoverable",
-				"q-btn--no-uppercase",
-				"q-btn--rounded"
-			);
-			openButton.style.fontSize = "14px";
+			const tbodyRows = table.querySelectorAll("tbody tr");
+			tbodyRows.forEach((row) => {
+				// Pour chaque ligne, ajoutez le bouton "Open" et définissez son comportement
+				const openTd = document.createElement("td");
+				const openButton = document.createElement("button");
+				openButton.classList.add(
+					"q-btn",
+					"inline",
+					"q-btn-item",
+					"non-selectable",
+					"no-outline",
+					"q-btn--unelevated",
+					"q-btn--rectangle",
+					"bg-app-toggle",
+					"q-btn--actionable",
+					"q-focusable",
+					"q-hoverable",
+					"q-btn--no-uppercase",
+					"q-btn--rounded"
+				);
+				openButton.style.fontSize = "14px";
 
-			const tdElement = row.querySelector(
-				".q-chip__content.row.no-wrap.items-center.q-anchor--skip"
-			);
+				const tdElement = row.querySelector(
+					".q-chip__content.row.no-wrap.items-center.q-anchor--skip"
+				);
 
-			if (tdElement) {
-				const tdContent = tdElement.textContent.trim();
+				if (tdElement) {
+					const tdContent = tdElement.textContent.trim();
 
-				if (tdContent.startsWith("Host(")) {
-					const match = tdContent.match(/`([^`]+)`/);
-					if (match) {
-						const tdLink = match[1];
-						const div = document.createElement("div");
-						div.style.color = "#1e54d5";
-						div.textContent = "Ouvrir";
+					if (tdContent.startsWith("Host(")) {
+						const match = tdContent.match(/`([^`]+)`/);
+						if (match) {
+							const tdLink = match[1];
+							const div = document.createElement("div");
+							div.style.color = "#1e54d5";
+							div.textContent = "Ouvrir";
 
-						openButton.appendChild(div);
-						openButton.addEventListener("click", (event) => {
-							event.stopPropagation();
-							isColumnAdded = false;
-							window.open(`https://${tdLink}`);
-						});
-						openTd.appendChild(openButton);
+							openButton.appendChild(div);
+							openButton.addEventListener("click", (event) => {
+								event.stopPropagation();
+								isColumnAdded = false;
+								window.open(
+									`https://${tdLink}`,
+									"_blank",
+									"noopener",
+									"noreferrer"
+								);
+							});
+							openTd.appendChild(openButton);
+						}
 					}
 				}
-			}
 
-			row.insertBefore(openTd, row.children[3]);
-		});
+				row.insertBefore(openTd, row.children[3]);
+			});
 
-		isColumnAdded = true;
+			isColumnAdded = true;
+		}, 1000);
 	} else if (hrefValue !== "#/http" && isColumnAdded) {
 		// Si le lien n'est pas "#/http" et la colonne a été ajoutée, retirez la colonne
 		const table = document.querySelector(".q-table");

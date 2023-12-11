@@ -25,6 +25,12 @@ Et voilà, vous pouvez maintenant vous rendre sur le dashboard de traefik et cli
 -   𝕏 - (Twitter): [@Gorski_Anthony](https://twitter.com/Gorski_Anthony)
 -   GitHub: [@GorskiAnthony](https://github.com/GorskiAnthony)
 
+## Contributeur
+
+👤 **Julien Richard**
+
+-   GitHub: [@jujuck](https://github.com/jujuck)
+
 ## Affichez votre soutien
 
 ## Donnez un ⭐️ si ce projet vous a aidé !
@@ -32,6 +38,7 @@ Et voilà, vous pouvez maintenant vous rendre sur le dashboard de traefik et cli
 ### 🗃️ Version
 
 -   **v0.1.0** - _Initial version_
+-   **v1.1.0** - La colonne `OPEN` s'ouvre dans un nouvel onglet
 
 ---
 
