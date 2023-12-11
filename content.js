@@ -103,7 +103,8 @@ function handleLinkClick(link) {
 						div.textContent = "Ouvrir";
 
 						openButton.appendChild(div);
-						openButton.addEventListener("click", () => {
+						openButton.addEventListener("click", (event) => {
+							event.stopPropagation();
 							isColumnAdded = false;
 							window.open(`https://${tdLink}`);
 						});
